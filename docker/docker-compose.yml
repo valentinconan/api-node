@@ -1,0 +1,21 @@
+version: '2.3'
+services:
+  api-node:
+    hostname: api-node
+    image: valentinconan/api-node:0.1.0
+    restart: unless-stopped
+    env_file:
+      - env/default.env
+    healthcheck:
+      test: wget -O /dev/null http://localhost:3000/api/ping || exit 1
+      interval: 1s
+      timeout: 5s
+      retries: 10
+    ports:
+      - 3000:3000
+    networks:
+      - api-network
+networks:
+  api-network:
+    external:
+      name: valentinconan
