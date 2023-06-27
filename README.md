@@ -1,4 +1,4 @@
-#api-node
+# api-node
 
 ## main purpose
 This project is an example of a quick-start project developed in node, exposing a rest API
