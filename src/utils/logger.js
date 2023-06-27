@@ -1,4 +1,5 @@
 import log4js from 'log4js'
+import Environment from './environment.js';
 
 export default class Logger {
     static getLogger(filePath) {
@@ -22,7 +23,7 @@ log4js.configure({
     categories: {
         default: {
             appenders: ['everything', 'out'],
-            level: process.env['LOG_LEVEL'] ? process.env['LOG_LEVEL'] : 'info'
+            level: Environment.get('LOG_LEVEL','info')
         }
     }
 });
