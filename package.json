@@ -1,5 +1,5 @@
 {
-  "name": "api-node",
+  "name": "node-api",
   "version": "0.1.0",
   "description": "This project is a sample of an api in node",
   "main": "src/server.js",
