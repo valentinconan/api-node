@@ -1,5 +1,5 @@
 import express from 'express';
-import HealthRouter from './health/healthRouter.js'
+import HealthRouter from './health/health-router.js'
 
 export default class MainRouter extends express.Router {
     constructor() {

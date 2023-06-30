@@ -1,6 +1,6 @@
 import express from 'express';
 import Logger from './utils/logger.js';
-import MainRouter from './routes/mainRouter.js';
+import MainRouter from './routes/main-router.js';
 import cors from 'cors';
 
 const LOGGER = Logger.getLogger('application');

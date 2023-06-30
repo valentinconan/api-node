@@ -1,8 +1,8 @@
 version: '2.3'
 services:
-  api-node:
-    hostname: api-node
-    image: valentinconan/api-node:0.1.0
+  node-api:
+    hostname: node-api
+    image: valentinconan/node-api:master
     restart: unless-stopped
     env_file:
       - env/default.env
@@ -15,9 +15,9 @@ services:
       - 3000:3000
     networks:
       - api-network
-  api-node-native:
-    hostname: api-node-native
-    image: valentinconan/api-node-native:0.1.0
+  node-api-native:
+    hostname: node-api-native
+    image: valentinconan/node-api-native:master
     restart: unless-stopped
     env_file:
       - env/default.env
@@ -32,5 +32,4 @@ services:
       - api-network
 networks:
   api-network:
-    external:
-      name: valentinconan
+    driver: bridge

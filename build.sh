@@ -9,8 +9,9 @@ help(){
     echo -e "\t-h display help"
     echo -e "\t-d generate docker image"
     echo -e "\t-n generate native build"
+    echo -e "\t-s build without running test"
     echo ""
-    echo "Sample : bash build.sh -d -n"
+    echo "Sample : bash build.sh -d -n -s"
     exit 0
 }
 
@@ -22,13 +23,14 @@ fi
 
 declare docker=false
 declare native=false
+declare skip_tests=false
 
 declare red='\033[0;31m'
 declare yellow='\033[0;33m'
 declare default='\033[0m'
 declare cyan='\033[0;36m'
 
-while getopts ":hdn" option; do
+while getopts ":hdns" option; do
    case $option in
       h) # display Help
          help
@@ -41,6 +43,10 @@ while getopts ":hdn" option; do
          echo -e "${yellow}Native Docker image will be generated locally"${default}""
          native=true
          ;;
+      s) #skip test
+        echo -e "${yellow}Using skip tests mode.${default}"
+        skip_tests=true
+        ;;
       \?) # exclude
          echo -e "${red}Error: Invalid option. Use -h for help${default}"
          exit;;
@@ -58,17 +64,23 @@ mkdir package
 # copying resources
 cp -r docker/* package/
 
+npm i
+
+if [ "$skip_tests" = false ]; then
+    npm test
+fi
+
 #Node version needed : 16
 if [ "$docker" = true ]; then
     echo -e "${yellow}Building docker image...${default}"
 
-    docker build --no-cache --build-arg VERSION=0.1.0 -t valentinconan/api-node:0.1.0 .
+    docker build --no-cache --build-arg VERSION=0.1.0 -t valentinconan/node-api:master .
 fi
 
 if [ "$native" = true ]; then
     echo -e "${yellow}Building native docker image...${default}"
 
-    docker build --no-cache --build-arg VERSION=0.1.0  -f Dockerfile.native -t valentinconan/api-node-native:0.1.0 .
+    docker build --no-cache --build-arg VERSION=0.1.0  -f Dockerfile.native -t valentinconan/node-api-native:master .
 fi
 
 
